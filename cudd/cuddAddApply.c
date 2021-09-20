@@ -272,6 +272,42 @@ Cudd_addThreshold(
 
 
 /**
+ *   @brief g if g&ge;g; f if f&lt;g.
+ *
+ *     @details Threshold operator for Apply (f if f &ge;g; 0 if f&lt;g).
+ *
+ *       @return NULL if not a terminal case; f op g otherwise.
+ *
+ *         @sideeffect None
+ *
+ *           @see Cudd_addApply
+ *
+ *           */
+DdNode *
+Cudd_addThreshold_DPMS(
+  DdManager * dd,
+  DdNode ** f,
+  DdNode ** g
+)
+{
+    DdNode *F, *G;
+
+    F = *f; G = *g;
+    if (F == G || F == DD_PLUS_INFINITY(dd)) return(G);
+    if (cuddIsConstant(F) && cuddIsConstant(G)) {
+        if (cuddV(F) >= cuddV(G)) {
+            return(G);
+        } else {
+            return(F);
+        }
+    }
+    return(NULL);
+
+} /* end of Cudd_addThreshold */
+
+
+
+/**
   @brief This operator sets f to the value of g wherever g != 0.
 
   @return NULL if not a terminal case; f op g otherwise.

@@ -2682,6 +2682,17 @@ ADD::Threshold(
 
 } // ADD::Threshold
 
+ADD
+ADD::Threshold_DPMS(
+  const ADD& g) const
+{
+    DdManager *mgr = checkSameManager(g);
+    DdNode *result = Cudd_addApply(mgr, Cudd_addThreshold_DPMS, node, g.node);
+    checkReturnValue(result);
+    return ADD(p, result);
+
+} // ADD::Threshold
+
 
 ADD
 ADD::SetNZ(
