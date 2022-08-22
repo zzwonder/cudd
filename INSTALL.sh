@@ -1,5 +1,5 @@
 #!/bin/bash
 
-./configure --quiet --enable-obj --prefix=$PWD/build/install
-make -s >/dev/null
-make -s install
+autoreconf
+./configure --silent --enable-obj
+make -s
